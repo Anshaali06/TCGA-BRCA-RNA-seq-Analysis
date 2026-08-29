@@ -22,6 +22,7 @@ install.packages(c(
 BiocManager::install(c(
   "ComplexHeatmap",
   "circlize"
+  "EnhancedVolcano"
 ))
 
 
@@ -39,6 +40,8 @@ library(ggplot2)
 library(ggrepel)
 library(ComplexHeatmap)
 library(circlize)
+library(pheatmap)
+linrary(EnhancedVolcano)
 
 
 # ============================================================
@@ -65,8 +68,7 @@ table(results$sample_type)
 
 GDCdownload(
   query,
-  method = "api",
-  files.per.chunk = 30
+  method = "api"
 )
 
 
@@ -173,19 +175,30 @@ res <- results(
   )
 )
 
+# Verify that results were generated successfully
+head(res)
+
+# ============================================================
+# 13. CONVERT RESULTS TO DATAFRAME AND ADD GENE NAMES
+# ============================================================
+
 res_df <- as.data.frame(res)
 
 res_df$gene <- rownames(res_df)
 
+# Check the dataframe
+head(res_df)
+
+
+# View the Top Significant Genes Results 
+
+head(res_df)
 res_df <- res_df[
   order(res_df$padj),
   ]
 
-head(res_df)
-
-
 # ============================================================
-# 13. FILTER SIGNIFICANT DIFFERENTIALLY EXPRESSED GENES
+# 14. FILTER SIGNIFICANT DIFFERENTIALLY EXPRESSED GENES
 # ============================================================
 
 sig_genes <- res_df[
@@ -198,7 +211,7 @@ nrow(sig_genes)
 
 
 # ============================================================
-# 14. IDENTIFY UPREGULATED GENES
+# 15. IDENTIFY UPREGULATED GENES
 # ============================================================
 
 upregulated <- sig_genes[
@@ -209,7 +222,7 @@ nrow(upregulated)
 
 
 # ============================================================
-# 15. IDENTIFY DOWNREGULATED GENES
+# 16. IDENTIFY DOWNREGULATED GENES
 # ============================================================
 
 downregulated <- sig_genes[
