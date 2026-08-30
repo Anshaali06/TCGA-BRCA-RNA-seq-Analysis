@@ -1,7 +1,6 @@
 
-# ============================================================
+
 # 1. INSTALL REQUIRED PACKAGES
-# ============================================================
 
 install.packages("BiocManager")
 
@@ -26,9 +25,9 @@ BiocManager::install(c(
 ))
 
 
-# ============================================================
+
 # 2. LOAD REQUIRED LIBRARIES
-# ============================================================
+
 
 library(TCGAbiolinks)
 library(DESeq2)
@@ -44,9 +43,9 @@ library(pheatmap)
 linrary(EnhancedVolcano)
 
 
-# ============================================================
+
 # 3. QUERY TCGA-BRCA DATA
-# ============================================================
+
 
 query <- GDCquery(
   project = "TCGA-BRCA",
@@ -62,9 +61,9 @@ nrow(results)
 table(results$sample_type)
 
 
-# ============================================================
+
 # 4. DOWNLOAD TCGA-BRCA DATA
-# ============================================================
+
 
 GDCdownload(
   query,
@@ -72,16 +71,16 @@ GDCdownload(
 )
 
 
-# ============================================================
+
 # 5. PREPARE DOWNLOADED DATA
-# ============================================================
+
 
 data <- GDCprepare(query)
 
 
-# ============================================================
+
 # 6. EXTRACT COUNT MATRIX AND SAMPLE INFORMATION
-# ============================================================
+
 
 counts <- assay(
   data,
@@ -93,9 +92,9 @@ coldata <- as.data.frame(
 )
 
 
-# ============================================================
+
 # 7. DEFINE TUMOUR AND NORMAL CONDITIONS
-# ============================================================
+
 
 coldata$condition <- ifelse(
   coldata$sample_type == "Primary Tumor",
@@ -113,9 +112,8 @@ table(
 )
 
 
-# ============================================================
 # 8. KEEP ONLY TUMOUR AND NORMAL SAMPLES
-# ============================================================
+
 
 keep <- !is.na(
   coldata$condition
@@ -133,9 +131,8 @@ coldata <- coldata[
 ]
 
 
-# ============================================================
+
 # 9. CREATE DESEQ2 DATASET
-# ============================================================
 
 dds <- DESeqDataSetFromMatrix(
   countData = counts,
@@ -144,9 +141,9 @@ dds <- DESeqDataSetFromMatrix(
 )
 
 
-# ============================================================
+
 # 10. FILTER LOW-COUNT GENES
-# ============================================================
+
 
 dds <- dds[
   rowSums(counts(dds)) >= 10,
@@ -155,16 +152,16 @@ dds <- dds[
 nrow(dds)
 
 
-# ============================================================
+
 # 11. RUN DESEQ2 ANALYSIS
-# ============================================================
+
 
 dds <- DESeq(dds)
 
 
-# ============================================================
+
 # 12. EXTRACT DIFFERENTIAL EXPRESSION RESULTS
-# ============================================================
+
 
 res <- results(
   dds,
@@ -178,9 +175,8 @@ res <- results(
 # Verify that results were generated successfully
 head(res)
 
-# ============================================================
+
 # 13. CONVERT RESULTS TO DATAFRAME AND ADD GENE NAMES
-# ============================================================
 
 res_df <- as.data.frame(res)
 
@@ -197,9 +193,9 @@ res_df <- res_df[
   order(res_df$padj),
   ]
 
-# ============================================================
+
 # 14. FILTER SIGNIFICANT DIFFERENTIALLY EXPRESSED GENES
-# ============================================================
+
 
 sig_genes <- res_df[
   !is.na(res_df$padj) &
@@ -210,9 +206,9 @@ sig_genes <- res_df[
 nrow(sig_genes)
 
 
-# ============================================================
+
 # 15. IDENTIFY UPREGULATED GENES
-# ============================================================
+
 
 upregulated <- sig_genes[
   sig_genes$log2FoldChange > 1,
@@ -221,9 +217,9 @@ upregulated <- sig_genes[
 nrow(upregulated)
 
 
-# ============================================================
+
 # 16. IDENTIFY DOWNREGULATED GENES
-# ============================================================
+
 
 downregulated <- sig_genes[
   sig_genes$log2FoldChange < -1,
