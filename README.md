@@ -82,7 +82,7 @@ Upregulated   Downregulated
  ↓               ↓
  └───────┬───────┘
          ↓
-Visualization
+    Visualization
  ↓               ↓
 Volcano Plot   Heatmap
          ↓
