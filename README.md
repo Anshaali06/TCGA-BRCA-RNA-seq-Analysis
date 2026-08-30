@@ -82,13 +82,14 @@ Upregulated   Downregulated
  ↓               ↓
  └───────┬───────┘
          ↓
-    Visualization
- ↓               ↓
-Volcano Plot   Heatmap
-         ↓
-GO Enrichment Analysis
-         ↓
-Biological Interpretation
+ ┌───────────────────────┐
+ ↓                       ↓
+Visualization       GO Enrichment
+ ↓                       ↓
+Volcano + Heatmap   BP + MF + CC
+         └───────┬───────┘
+                 ↓
+      Biological Interpretation
 ```
 
 ## 📊 Results
