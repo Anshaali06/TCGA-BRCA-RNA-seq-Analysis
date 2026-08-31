@@ -20,7 +20,7 @@ install.packages(c(
 
 BiocManager::install(c(
   "ComplexHeatmap",
-  "circlize"
+  "circlize",
   "EnhancedVolcano"
 ))
 
