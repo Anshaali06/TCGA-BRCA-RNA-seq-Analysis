@@ -88,7 +88,7 @@ getwd()
 
 
 #  Alternative: ComplexHeatmap
-
+library(ComplexHeatmap)
 
 ha <- HeatmapAnnotation(
   Condition = annotation_col$Condition
