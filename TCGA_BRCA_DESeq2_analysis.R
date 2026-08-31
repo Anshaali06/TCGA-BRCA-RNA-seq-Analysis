@@ -40,7 +40,7 @@ library(ggrepel)
 library(ComplexHeatmap)
 library(circlize)
 library(pheatmap)
-linrary(EnhancedVolcano)
+library(EnhancedVolcano)
 
 
 
