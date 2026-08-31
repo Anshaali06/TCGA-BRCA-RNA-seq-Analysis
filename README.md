@@ -135,6 +135,14 @@ The analysis explores three major Gene Ontology categories:
 
 The enriched terms provide insight into the biological functions and processes associated with the identified DEGs.
 
+### Biological Interpretation
+
+The GO enrichment results showed distinct functional patterns between the upregulated and downregulated genes. Upregulated genes were mainly associated with chromosome organization, nucleosome assembly, nuclear division, and chromosome segregation. Downregulated genes were mainly associated with muscle, circulatory, and vascular functions.
+
+Overall, the results suggest that the differentially expressed genes are involved in distinct biological functions between Primary Tumor and Solid Tissue Normal samples.
+
+---
+
 ## 🧾 Conclusion
 
 This project demonstrates a complete workflow for **RNA-seq differential gene expression analysis using TCGA-BRCA data in R**.
@@ -144,6 +152,7 @@ The workflow covers data retrieval, sample selection, count matrix preparation, 
 Overall, this project provides a practical introduction to how computational approaches can be used to analyse gene expression data and explore its biological significance in cancer research.
 
 ---
+
 
 ## 💡 Final Note
 
